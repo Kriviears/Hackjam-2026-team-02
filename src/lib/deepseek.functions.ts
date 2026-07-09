@@ -2,6 +2,8 @@
 // The API key stays on the server; the browser never sees it.
 import { createServerFn } from "@tanstack/react-start";
 import type { Milestone } from "@/data/interfaces";
+import { milestones as defaultMilestones } from "@/data/mockData";
+import { extraAIConversations } from "@/data/demoData";
 
 const DEEPSEEK_URL = "https://api.deepseek.com/chat/completions";
 
@@ -69,7 +71,34 @@ export const deepseekChat = createServerFn({ method: "POST" })
   .inputValidator(validateChatInput)
   .handler(async ({ data }) => {
     const apiKey = process.env.DEEPSEEK_API_KEY;
-    if (!apiKey) throw new Error("Missing DEEPSEEK_API_KEY secret.");
+    if (!apiKey) {
+      // Robust Fallback Mode: Match client prompt to demo conversations
+      const lastMessage = data.messages[data.messages.length - 1]?.content || "";
+      const match = extraAIConversations.find(
+        (c) => c.prompt.toLowerCase().trim() === lastMessage.toLowerCase().trim()
+      );
+      if (match) {
+        return { content: match.response };
+      }
+
+      // Default mock responses for standard prompts
+      if (lastMessage.toLowerCase().includes("bedrock") || lastMessage.toLowerCase().includes("azure")) {
+        return {
+          content: "**AWS Bedrock**: model choice (Anthropic, Meta, Amazon), tight AWS integration, good for multi-model apps.\n\n**Azure OpenAI**: first-class GPT models, enterprise compliance, deep Microsoft ecosystem fit.\n\nChoose based on your **existing cloud** and whether you need model variety (Bedrock) or the latest OpenAI models (Azure). ⚖️"
+        };
+      }
+
+      return {
+        content: `I'm currently running in **Demo Mode** because the \`DEEPSEEK_API_KEY\` environment secret is not configured in this environment (such as on Vercel).
+
+To enable fully dynamic, live AI responses:
+1. Go to your **Vercel Project Dashboard** under **Settings -> Environment Variables**.
+2. Add a new variable named \`DEEPSEEK_API_KEY\` with your private key value.
+3. Re-deploy your project! 🚀
+
+For now, feel free to try clicking any of the suggested prompts in the sidebar (e.g., *Compare AWS Bedrock vs Azure OpenAI*, *Explain RAG simply*), and I will instantly return high-quality simulated answers! ✨`
+      };
+    }
 
     const content = await callDeepseek(apiKey, [
       { role: "system", content: SYSTEM_PROMPT },
@@ -102,7 +131,10 @@ export const generateRoadmap = createServerFn({ method: "POST" })
   .inputValidator(validateRoadmapInput)
   .handler(async ({ data }): Promise<{ milestones: Milestone[] }> => {
     const apiKey = process.env.DEEPSEEK_API_KEY;
-    if (!apiKey) throw new Error("Missing DEEPSEEK_API_KEY secret.");
+    if (!apiKey) {
+      console.warn("DEEPSEEK_API_KEY is not set. Falling back to default high-quality milestones.");
+      return { milestones: defaultMilestones };
+    }
 
     const prompt = `Generate a personalized 20-step tech career roadmap as JSON.
 Current stage: "${data.currentStage}"
