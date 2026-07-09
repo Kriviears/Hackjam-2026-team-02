@@ -32,3 +32,8 @@ dist-ssr
 *.sw?
 # Local npm cache
 .npm-cache/
+
+# Local Environment Secret Files
+.env
+.env.*
+!.env.example
