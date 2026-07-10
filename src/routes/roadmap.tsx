@@ -108,7 +108,7 @@ function Roadmap() {
         <h1 className="text-3xl font-extrabold text-foreground">AI Career Roadmap</h1>
         <p className="mx-auto mt-2 max-w-xl text-muted-foreground">
           A guided path from <span className="font-semibold text-secondary">AWS re/Start Graduate</span> to{" "}
-          <span className="font-semibold text-accent-foreground">Senior Cloud Solutions Architect</span> — 20
+          <span className="font-semibold text-accent-foreground">Senior Cloud Solutions Architect</span> — 8
           milestones across Foundation, Intermediate, Advanced and your Final Goal.
         </p>
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-6 inline-block">
