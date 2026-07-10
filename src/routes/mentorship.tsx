@@ -5,7 +5,8 @@ import { toast } from "sonner";
 import { PageTransition } from "@/components/PageTransition";
 import { MentorCard } from "@/components/MentorCard";
 import { Button } from "@/components/ui/button";
-import { mentors } from "@/data/mockData";
+import { useEffect, useState } from "react";
+import { getMatchedMentors, type MatchedMentor } from "@/lib/mentor-match.server";
 
 export const Route = createFileRoute("/mentorship")({
   head: () => ({
@@ -23,11 +24,40 @@ export const Route = createFileRoute("/mentorship")({
 });
 
 function Mentorship() {
+ const [mentors, setMentors] = useState<MatchedMentor[]>([]);
+
+  useEffect(() => {
+    getMatchedMentors({
+      data: {
+        destination: "Senior Cloud Solutions Architect", // matches roadmap.tsx for now
+      },
+    }).then(setMentors);
+  }, []);
+
   const featured = mentors[0];
   const rest = mentors.slice(1);
 
   const notify = (msg: string) => toast.success(msg);
-
+if (!featured) {
+  return (
+    <PageTransition>
+      <div className="mb-8">
+        <h1 className="text-3xl font-extrabold text-foreground">Mentorship Hub</h1>
+        <p className="mt-1 text-muted-foreground">Learn from those who've walked the path before you.</p>
+      </div>
+      <section className="glass-card overflow-hidden p-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center animate-pulse">
+          <div className="h-28 w-28 rounded-3xl bg-muted" />
+          <div className="flex-1 space-y-3">
+            <div className="h-4 w-32 rounded bg-muted" />
+            <div className="h-6 w-48 rounded bg-muted" />
+            <div className="h-4 w-56 rounded bg-muted" />
+          </div>
+        </div>
+      </section>
+    </PageTransition>
+  );
+}
   return (
     <PageTransition>
       <div className="mb-8">
@@ -46,7 +76,7 @@ function Mentorship() {
               loading="lazy"
             />
             <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full gradient-brand px-3 py-1 text-xs font-bold text-white shadow-lg">
-              94% match
+              {featured?.matchScore}% match
             </span>
           </div>
           <div className="flex-1">
