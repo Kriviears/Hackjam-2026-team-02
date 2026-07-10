@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TechnologyStackRouteImport } from './routes/technology-stack'
 import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
@@ -23,6 +24,11 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TechnologyStackRoute = TechnologyStackRouteImport.update({
+  id: '/technology-stack',
+  path: '/technology-stack',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SuccessStoriesRoute = SuccessStoriesRouteImport.update({
   id: '/success-stories',
   path: '/success-stories',
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/roadmap': typeof RoadmapRoute
   '/settings': typeof SettingsRoute
   '/success-stories': typeof SuccessStoriesRoute
+  '/technology-stack': typeof TechnologyStackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/roadmap': typeof RoadmapRoute
   '/settings': typeof SettingsRoute
   '/success-stories': typeof SuccessStoriesRoute
+  '/technology-stack': typeof TechnologyStackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/roadmap': typeof RoadmapRoute
   '/settings': typeof SettingsRoute
   '/success-stories': typeof SuccessStoriesRoute
+  '/technology-stack': typeof TechnologyStackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/roadmap'
     | '/settings'
     | '/success-stories'
+    | '/technology-stack'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/roadmap'
     | '/settings'
     | '/success-stories'
+    | '/technology-stack'
   id:
     | '__root__'
     | '/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/roadmap'
     | '/settings'
     | '/success-stories'
+    | '/technology-stack'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,10 +209,18 @@ export interface RootRouteChildren {
   RoadmapRoute: typeof RoadmapRoute
   SettingsRoute: typeof SettingsRoute
   SuccessStoriesRoute: typeof SuccessStoriesRoute
+  TechnologyStackRoute: typeof TechnologyStackRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/technology-stack': {
+      id: '/technology-stack'
+      path: '/technology-stack'
+      fullPath: '/technology-stack'
+      preLoaderRoute: typeof TechnologyStackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/success-stories': {
       id: '/success-stories'
       path: '/success-stories'
@@ -309,6 +329,7 @@ const rootRouteChildren: RootRouteChildren = {
   RoadmapRoute: RoadmapRoute,
   SettingsRoute: SettingsRoute,
   SuccessStoriesRoute: SuccessStoriesRoute,
+  TechnologyStackRoute: TechnologyStackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
