@@ -115,6 +115,7 @@ export const navItems: NavItem[] = [
   { to: "/achievements", label: "Achievements", icon: "Trophy", roles: ["learner", "mentor", "admin"] },
   { to: "/notifications", label: "Notifications", icon: "Bell", roles: ["learner", "mentor", "admin"] },
   { to: "/admin", label: "Admin Portal", icon: "ShieldCheck", roles: ["admin"] },
+  { to: "/technology-stack", label: "Tech Stack", icon: "Info", roles: ["learner", "mentor", "admin"] },
   { to: "/settings", label: "Settings", icon: "Settings", roles: ["learner", "mentor", "admin"] },
 ];
 
