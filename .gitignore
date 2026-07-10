@@ -32,3 +32,4 @@ dist-ssr
 *.sw?
 # Local npm cache
 .npm-cache/
+.env

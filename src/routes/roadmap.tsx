@@ -8,7 +8,8 @@ import { PageTransition } from "@/components/PageTransition";
 import { MilestoneCard } from "@/components/MilestoneCard";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/UserContext";
-import { milestones } from "@/data/mockData";
+import { generateRoadmap } from "@/lib/ai.server";
+import type { Milestone } from "@/data/interfaces";
 
 export const Route = createFileRoute("/roadmap")({
   head: () => ({
@@ -53,10 +54,28 @@ function Roadmap() {
   const [loadingStep, setLoadingStep] = useState(-1);
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
+  const [milestones, setMilestones] = useState<Milestone[]>([]);
 
-  const generate = () => {
+  const generate = async () => {
     setGenerated(false);
     setLoadingStep(0);
+
+     try {
+    const result = await generateRoadmap({
+      data: {
+        currentStage: "AWS re/Start Graduate",
+        destination: "Senior Cloud Solutions Architect",
+      },
+    });
+    setMilestones(result);
+  } catch (err) {
+    toast.error("Failed to generate roadmap. Please try again.");
+    console.error(err);
+    setLoadingStep(-1);
+    return;
+  }
+
+  setLoadingStep(loadingSteps.length); // triggers the existing useEffect to reveal the timeline
   };
 
   useEffect(() => {
