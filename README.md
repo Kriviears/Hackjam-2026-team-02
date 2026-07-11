@@ -181,34 +181,81 @@ Participants should not share private information, server screenshots, logs, or 
 ## 🧭 Clone This Repo
 
 ```bash
-git clone https://github.com/your-org/hackjam-team-XX.git
-cd hackjam-team-XX
+git clone https://github.com/Kriviears/Hackjam-2026-team-02.git
+cd Hackjam-2026-team-02
 ```
 
 ---
 
 ## 🚀 Getting Started
 
-Add your team's setup instructions here as your project develops.
+This project is built with [TanStack Start](https://tanstack.com/start) and uses **Bun** as the package manager and runtime.
+
+### Prerequisites
+
+- [Bun](https://bun.sh) installed on your machine:
+  ```bash
+  curl -fsSL https://bun.sh/install | bash
+  ```
+
+### Install & Run
 
 ```bash
-# Example
-npm install
-npm run dev
+bun install
+bun run dev
 ```
+
+The app will start on a local development server (typically `http://localhost:3000`).
 
 ---
 
 ## 📌 Project Description
 
-Add a brief description of your team's Tech Futures solution here.
+**PerX** is a gamified, AI-powered career pathing platform built for Per Scholas alumni, current learners, and aspiring tech candidates. It acts as a digital gateway from "where I am today" to "where I want to be" — combining a personalized AI-generated career roadmap, mentor matching, and gamified progress tracking in a single, immersive experience.
 
-Suggested format:
+### Core Features
 
-> Our project is a futuristic career pathing application that helps Per Scholas alumni, learners, and aspiring candidates visualize their tech career future, generate personalized AI-powered roadmaps, track milestones, and discover aligned employers, mentors, and opportunities.
+- **AI Career Roadmap** — generates a personalized, step-by-step milestone path from the learner's current stage to their target tech role, adapting as they progress.
+- **Mentorship Hub** — connects learners with experienced industry mentors, ranked by relevance to the learner's target role and skills.
+- **Gamified Progress** — XP, levels, badges, streaks, and daily challenges keep learners motivated and engaged from first lesson to first job offer.
+- **AI Learning Center** — quest-based practice challenges across cloud, DevOps, security, and programming topics.
+- **Achievements Dashboard** — visual tracking of unlocked badges and overall career readiness.
+
+### How PerX Supports Per Scholas Learners
+
+Per Scholas alumni often complete strong technical training but lose momentum at the next step — unsure what to learn next, how to find relevant mentors, or how to stay motivated during the job search. PerX addresses this directly by turning an abstract, uncertain journey into a concrete, personalized, and engaging roadmap — pairing AI-driven guidance with real human mentorship and a rewarding, game-like sense of progress at every milestone.
+
+### Project Status
+
+This is a working prototype built during CGI Hack Jam 2026. The core UI and gamification systems are fully built out. AI-powered roadmap generation and mentor matching logic are in active development on a separate branch (`backend-integration`) as we finalize and test the integration before merging.
 
 ---
 
 ## 📄 License and Resource Credits
 
-Add licensing information and credits for any open-source tools, APIs, design assets, datasets, or AI tools used in the project.
+### Frontend
+
+- [React](https://react.dev/) — UI library
+- [TanStack Start](https://tanstack.com/start) & [TanStack Router](https://tanstack.com/router) — full-stack framework, file-based routing, server functions
+- [TanStack Query](https://tanstack.com/query) — data fetching/caching
+- [Tailwind CSS](https://tailwindcss.com/) — utility-first styling
+- [shadcn/ui](https://ui.shadcn.com/) — accessible UI component primitives
+- [Framer Motion](https://www.framer.com/motion/) — animation
+- [Lucide React](https://lucide.dev/) — icon set
+- [Sonner](https://sonner.emilkowal.ski/) — toast notifications
+- [react-confetti](https://github.com/alampros/react-confetti) — celebratory milestone animation
+
+### Data & AI (in progress)
+
+- [MongoDB Atlas](https://www.mongodb.com/atlas) — planned data persistence layer (Free Tier)
+- LLM-powered career roadmap generation — in development
+
+### Runtime & Tooling
+
+- [Bun](https://bun.sh) — package manager and JavaScript runtime
+
+### Design Assets
+
+- Mentor and user avatar photos via [Pravatar](https://pravatar.cc/)
+
+All libraries and tools used are free, open-source, or available on a free tier, in accordance with Hack Jam 2026 guidelines.
